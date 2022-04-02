@@ -8,6 +8,7 @@ TagManager:
   - Moving
   - KillZone
   - Enemy
+  - BoxColliderEnemy
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Floor
   - Player
   - Coins
-  - 
+  - FloorColliderForEnemy
   - 
   - 
   - 

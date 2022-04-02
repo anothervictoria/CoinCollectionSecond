@@ -33,11 +33,19 @@ public class PlayerController : MonoBehaviour
         particalPosition = transform.position;
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    IEnumerator StartParticleEffect()
     {
-        if (other.tag == "Enemy")
+        GameObject partical = Instantiate(heartParticle, particalPosition, Quaternion.identity);
+        yield return new WaitForSeconds(2f);
+        Destroy(partical);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
         {
-            Destroy(other.gameObject);
+            Destroy(collision.gameObject);
             Destroy(hearts[heartIndex]);
             gameAudio.PlayOneShot(heartSound, 1f);
             StartCoroutine(StartParticleEffect());
@@ -50,13 +58,4 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    IEnumerator StartParticleEffect()
-    {
-        GameObject partical = Instantiate(heartParticle, particalPosition, Quaternion.identity);
-        yield return new WaitForSeconds(2f);
-        Destroy(partical);
-    }
-
-
 }
