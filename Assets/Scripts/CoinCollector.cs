@@ -37,11 +37,7 @@ public class CoinCollector : MonoBehaviour
             particleSystem.Play();
             gameManager.UpdateScore();
         }
-        if (other.gameObject.CompareTag("KillZone"))
-        {
-            gameManager.PlayerDie();
-            gameManager.PlayerAudio();
-        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)

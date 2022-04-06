@@ -15,12 +15,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject heartParticle;
     GameManager gameManager;
     Vector3 particalPosition;
-    Vector3 particalPositionOffset;
+    Vector3 playersStartPosition;
+
+
     
 
     // Start is called before the first frame update
     void Start()
     {
+        playersStartPosition = transform.position;
         heartIndex = 0;
         numberOfHearts = 3;
         gameManager = FindObjectOfType<GameManager>();
@@ -43,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             Destroy(collision.gameObject);
             Destroy(hearts[heartIndex]);
@@ -57,5 +60,21 @@ public class PlayerController : MonoBehaviour
                 gameManager.Restart();
             }
         }
+        if (collision.gameObject.CompareTag("KillZone"))
+        {
+            Destroy(hearts[heartIndex]);
+            heartIndex++;
+            numberOfHearts--;
+            gameManager.PlayerAudio();
+            StartCoroutine(StartParticleEffect());
+            StartCoroutine(MoveToStartPosition());
+
+        }
+    }
+
+    IEnumerator MoveToStartPosition()
+    {
+        yield return new WaitForSeconds(1f);
+        transform.position = playersStartPosition;
     }
 }

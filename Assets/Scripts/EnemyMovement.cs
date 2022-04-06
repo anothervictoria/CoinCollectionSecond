@@ -15,15 +15,24 @@ public class EnemyMovement : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.tag == "BoxColliderEnemy")
+    //    {
+    //        Debug.Log("Collided");
+    //        //enemyRigidbody.velocity = new Vector3(-moveSpeed, 0, 0);
+    //        moveSpeed *= -1;
+    //        enemyRigidbody.velocity = new Vector3(moveSpeed, 0, 0);
+    //        Debug.Log($"{enemyRigidbody.velocity}");
+    //    }
+    //}
+
+    private void OnCollisionEnter(Collision collision)
     {
-        if(other.tag == "BoxColliderEnemy")
+        if(collision.gameObject.CompareTag("BoxColliderEnemy"))
         {
-            Debug.Log("Collided");
-            //enemyRigidbody.velocity = new Vector3(-moveSpeed, 0, 0);
             moveSpeed *= -1;
             enemyRigidbody.velocity = new Vector3(moveSpeed, 0, 0);
-            Debug.Log($"{enemyRigidbody.velocity}");
         }
     }
 }
